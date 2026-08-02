@@ -263,30 +263,64 @@ function initVoiceGreeting() {
     speechSynthesis.cancel();
 
     setTimeout(() => {
+      const voices = speechSynthesis.getVoices();
+
+      // Prefer warm, natural female voices ranked by quality
+      const pickVoice = () => {
+        const rankings = [
+          /google uk english female/i,
+          /google us english/i,
+          /samantha/i,
+          /karen/i,
+          /moira/i,
+          /fiona/i,
+          /zira/i,
+          /hazel/i,
+          /susan/i,
+          /female/i
+        ];
+
+        for (const pattern of rankings) {
+          const match = voices.find(v => pattern.test(v.name) && /en/i.test(v.lang));
+          if (match) return match;
+        }
+        // Fallback to any English voice
+        return voices.find(v => /en/i.test(v.lang)) || null;
+      };
+
       const trySpeak = () => {
-        const utterance = new SpeechSynthesisUtterance("Hello There! I'm Ujjwal");
-        utterance.rate = 0.92;
-        utterance.pitch = 1.05;
-        utterance.volume = 1;
+        const voice = pickVoice();
 
-        // Pick a good English voice if available
-        const voices = speechSynthesis.getVoices();
-        const preferred = voices.find(v =>
-          /google.*us|samantha|daniel|zira|david|mark/i.test(v.name) && /en/i.test(v.lang)
-        ) || voices.find(v => /en/i.test(v.lang));
-        if (preferred) utterance.voice = preferred;
+        // Part 1: "Hello There!"
+        const greet = new SpeechSynthesisUtterance("Hello There!");
+        greet.rate = 0.88;
+        greet.pitch = 1.15;
+        greet.volume = 1;
+        if (voice) greet.voice = voice;
 
-        speechSynthesis.speak(utterance);
+        // Part 2: "I'm Ujjwal" — spoken after a natural pause
+        greet.onend = () => {
+          setTimeout(() => {
+            const intro = new SpeechSynthesisUtterance("I'm Ujjwal. Welcome to my portfolio.");
+            intro.rate = 0.9;
+            intro.pitch = 1.1;
+            intro.volume = 1;
+            if (voice) intro.voice = voice;
+            speechSynthesis.speak(intro);
+          }, 350); // natural breath pause
+        };
+
+        speechSynthesis.speak(greet);
       };
 
       // Voices may load asynchronously
-      if (speechSynthesis.getVoices().length) {
+      if (voices.length) {
         trySpeak();
       } else {
-        speechSynthesis.addEventListener("voiceschanged", trySpeak, { once: true });
+        speechSynthesis.addEventListener("voiceschanged", () => trySpeak(), { once: true });
         setTimeout(trySpeak, 800);
       }
-    }, 200);
+    }, 300);
   }
 
   // Only use gestures that browsers accept for unlocking audio
