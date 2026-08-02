@@ -236,6 +236,65 @@ function bootFramerMotionBridge() {
   );
 }
 
+function initVoiceGreeting() {
+  if (!window.speechSynthesis) return;
+
+  // Clear stale flag so greeting works on fresh page load
+  if (!performance.navigation ||
+    performance.getEntriesByType("navigation")[0]?.type === "navigate") {
+    sessionStorage.removeItem("greeted");
+  }
+
+  if (sessionStorage.getItem("greeted")) return;
+
+  let spoken = false;
+
+  function speak() {
+    if (spoken) return;
+    spoken = true;
+    sessionStorage.setItem("greeted", "1");
+
+    // Clean up all listeners
+    ["click", "keydown", "touchstart"].forEach(evt =>
+      window.removeEventListener(evt, speak, true)
+    );
+
+    // Cancel any stuck speech and give a brief pause
+    speechSynthesis.cancel();
+
+    setTimeout(() => {
+      const trySpeak = () => {
+        const utterance = new SpeechSynthesisUtterance("Hello There! I'm Ujjwal");
+        utterance.rate = 0.92;
+        utterance.pitch = 1.05;
+        utterance.volume = 1;
+
+        // Pick a good English voice if available
+        const voices = speechSynthesis.getVoices();
+        const preferred = voices.find(v =>
+          /google.*us|samantha|daniel|zira|david|mark/i.test(v.name) && /en/i.test(v.lang)
+        ) || voices.find(v => /en/i.test(v.lang));
+        if (preferred) utterance.voice = preferred;
+
+        speechSynthesis.speak(utterance);
+      };
+
+      // Voices may load asynchronously
+      if (speechSynthesis.getVoices().length) {
+        trySpeak();
+      } else {
+        speechSynthesis.addEventListener("voiceschanged", trySpeak, { once: true });
+        setTimeout(trySpeak, 800);
+      }
+    }, 200);
+  }
+
+  // Only use gestures that browsers accept for unlocking audio
+  ["click", "keydown", "touchstart"].forEach(evt =>
+    window.addEventListener(evt, speak, { capture: true })
+  );
+}
+
 createTechCloud();
 initReveal();
 initCounters();
@@ -247,6 +306,7 @@ initThemeToggle();
 initCursorGlow();
 initParallax();
 bootFramerMotionBridge();
+initVoiceGreeting();
 updateScrollState();
 
 window.addEventListener("scroll", updateScrollState, { passive: true });
