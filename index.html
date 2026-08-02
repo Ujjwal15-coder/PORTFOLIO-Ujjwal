@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,12 +8,30 @@
   <meta name="description" content="Premium full stack developer portfolio of Ujjwal Srivastava." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
+  <!-- Welcome Splash Screen -->
+  <div id="welcome-screen" class="welcome-screen">
+    <div class="welcome-content">
+      <div class="welcome-hello">Hello There 👋</div>
+      <div class="welcome-name">I'm <span>Ujjwal</span></div>
+      <div class="welcome-subtitle">Full Stack Developer</div>
+      <button id="enter-btn" class="welcome-enter-btn">
+        <i class="fa-solid fa-arrow-right"></i>
+        <span>Enter Portfolio</span>
+      </button>
+      <p class="welcome-hint">🔊 Turn on your speakers</p>
+    </div>
+    <div class="welcome-particles" aria-hidden="true"></div>
+  </div>
+
   <div class="cursor-glow" aria-hidden="true"></div>
   <div class="scroll-progress" aria-hidden="true"></div>
   <div class="ambient-bg" aria-hidden="true">
@@ -47,14 +66,15 @@
     </nav>
   </header>
 
-  <main>  
+  <main>
     <section id="home" class="hero section">
       <div class="hero-copy reveal">
         <p class="eyebrow">Hi, I'm</p>
         <h1><span>Ujjwal</span></h1>
         <p class="hero-role">Lifelong Learner | Full Stack Developer</p>
         <p class="hero-desc">
-          I design and build polished full stack products with clean interfaces, reliable backend logic, and a sharp eye for details that make software feel premium.
+          I design and build polished full stack products with clean interfaces, reliable backend logic, and a sharp eye
+          for details that make software feel premium.
         </p>
         <div class="hero-actions">
           <a href="Ujjwal Srivastava Resume (1).pdf" download class="btn primary magnetic">
@@ -67,10 +87,14 @@
           </a>
         </div>
         <div class="social-row" aria-label="Social profiles">
-          <a href="https://github.com/Ujjwal15-coder" target="_blank" rel="noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-          <a href="https://www.linkedin.com/in/ujjwal-srivastava-844034328" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-          <a href="https://leetcode.com/" target="_blank" rel="noreferrer" aria-label="LeetCode"><i class="fa-solid fa-code"></i></a>
-          <a href="https://www.instagram.com/moody_ujjwal_/" target="_blank" rel="noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://github.com/Ujjwal15-coder" target="_blank" rel="noreferrer" aria-label="GitHub"><i
+              class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/ujjwal-srivastava-844034328" target="_blank" rel="noreferrer"
+            aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://leetcode.com/" target="_blank" rel="noreferrer" aria-label="LeetCode"><i
+              class="fa-solid fa-code"></i></a>
+          <a href="https://www.instagram.com/moody_ujjwal_/" target="_blank" rel="noreferrer" aria-label="Instagram"><i
+              class="fa-brands fa-instagram"></i></a>
           <a href="mailto:ujjwalsrivastava.dev@gmail.com" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
         </div>
       </div>
@@ -103,7 +127,9 @@
         <div class="about-content">
           <h3>Ujjwal Srivastava</h3>
           <p>
-            I am a full stack developer and engineering student who enjoys turning difficult problems into focused, usable digital products. My work blends frontend polish, backend structure, API thinking, and continuous learning across modern web technologies.
+            I am a full stack developer and engineering student who enjoys turning difficult problems into focused,
+            usable digital products. My work blends frontend polish, backend structure, API thinking, and continuous
+            learning across modern web technologies.
           </p>
           <div class="stats-grid">
             <div class="stat-card"><strong data-count="440">0</strong><span>Problems | 4★ LeetCode</span></div>
@@ -125,7 +151,8 @@
         <article class="skill-card glass"><i class="devicon-c-plain colored"></i><span>C</span></article>
         <article class="skill-card glass"><i class="devicon-cplusplus-plain colored"></i><span>C++</span></article>
         <article class="skill-card glass"><i class="devicon-python-plain colored"></i><span>Python</span></article>
-        <article class="skill-card glass"><i class="devicon-javascript-plain colored"></i><span>JavaScript</span></article>
+        <article class="skill-card glass"><i class="devicon-javascript-plain colored"></i><span>JavaScript</span>
+        </article>
         <article class="skill-card glass"><i class="devicon-html5-plain colored"></i><span>HTML</span></article>
         <article class="skill-card glass"><i class="devicon-css3-plain colored"></i><span>CSS</span></article>
         <article class="skill-card glass"><i class="devicon-react-original colored"></i><span>React</span></article>
@@ -136,10 +163,12 @@
         <article class="skill-card glass"><i class="devicon-mysql-plain colored"></i><span>MySQL</span></article>
         <article class="skill-card glass"><i class="devicon-git-plain colored"></i><span>Git</span></article>
         <article class="skill-card glass"><i class="devicon-github-original"></i><span>GitHub</span></article>
-        <article class="skill-card glass"><i class="devicon-tailwindcss-original colored"></i><span>Tailwind</span></article>
+        <article class="skill-card glass"><i class="devicon-tailwindcss-original colored"></i><span>Tailwind</span>
+        </article>
         <article class="skill-card glass"><i class="devicon-postman-plain colored"></i><span>Postman</span></article>
         <article class="skill-card glass"><i class="devicon-vscode-plain colored"></i><span>VS Code</span></article>
-        <article class="skill-card glass"><i class="devicon-photoshop-plain colored"></i><span>Photoshop</span></article>
+        <article class="skill-card glass"><i class="devicon-photoshop-plain colored"></i><span>Photoshop</span>
+        </article>
         <article class="skill-card glass"><i class="devicon-figma-plain colored"></i><span>Figma</span></article>
         <article class="skill-card glass"><i class="devicon-nginx-original colored"></i><span>Nginx</span></article>
         <article class="skill-card glass"><i class="devicon-vercel-original"></i><span>Vercel</span></article>
@@ -155,14 +184,16 @@
           <p>03 / Selected Work</p>
           <h2>Featured Projects</h2>
         </div>
-        <a href="https://github.com/Ujjwal15-coder" target="_blank" rel="noreferrer" class="btn small outline magnetic">View All Projects</a>
+        <a href="https://github.com/Ujjwal15-coder" target="_blank" rel="noreferrer"
+          class="btn small outline magnetic">View All Projects</a>
       </div>
       <div class="projects-grid reveal">
         <article class="project-card glass">
           <img src="neighbourhub-thumbnail.png" alt="Neighbour HUB project screenshot" />
           <div>
             <h3>Neighbour HUB</h3>
-            <p>Full stack local-services marketplace for finding nearby professionals, booking jobs, and managing service requests with a premium dark UI.</p>
+            <p>Full stack local-services marketplace for finding nearby professionals, booking jobs, and managing
+              service requests with a premium dark UI.</p>
             <div class="badges"><span>MERN</span><span>Marketplace</span><span>Bookings</span></div>
             <div class="project-actions">
               <a href="https://neighbourhub-1.onrender.com/" target="_blank" rel="noreferrer">Live Demo</a>
@@ -174,7 +205,8 @@
           <img src="ai-fitness-tracker-thumbnail.png" alt="AI-Fitness Tracker project screenshot" />
           <div>
             <h3>AI-Fitness Tracker</h3>
-            <p>Smart fitness dashboard for tracking calories, activity minutes, goals, workouts, and body metrics with a polished responsive UI.</p>
+            <p>Smart fitness dashboard for tracking calories, activity minutes, goals, workouts, and body metrics with a
+              polished responsive UI.</p>
             <div class="badges"><span>React</span><span>Fitness</span><span>Dashboard</span></div>
             <div class="project-actions">
               <a href="https://ai-fitness-tracker-ten.vercel.app/" target="_blank" rel="noreferrer">Live Demo</a>
@@ -186,7 +218,8 @@
           <img src="Screenshot 2025-09-05 235549.png" alt="Tic Tac Toe Game screenshot" />
           <div>
             <h3>Tic Tac Toe Game</h3>
-            <p>Classic game rebuilt with crisp interactions, smooth animations, and a polished responsive game board.</p>
+            <p>Classic game rebuilt with crisp interactions, smooth animations, and a polished responsive game board.
+            </p>
             <div class="badges"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
             <div class="project-actions">
               <a href="https://tic-tac-toe-beryl-eight.vercel.app/" target="_blank" rel="noreferrer">Live Demo</a>
@@ -203,7 +236,8 @@
         <h2>Licenses & Certifications</h2>
       </div>
       <div class="cert-shell reveal">
-        <button class="cert-arrow prev" type="button" aria-label="Previous certificate"><i class="fa-solid fa-arrow-left"></i></button>
+        <button class="cert-arrow prev" type="button" aria-label="Previous certificate"><i
+            class="fa-solid fa-arrow-left"></i></button>
         <div class="cert-track">
           <article class="cert-card glass">
             <img src="GUVI HCL 48 hrs hackathon.jpg" alt="GUVI HCL hackathon certificate" />
@@ -224,13 +258,15 @@
             <span>2024</span>
           </article>
           <article class="cert-card glass">
-            <img class="cert-contain" src="kalpathon-winner-04.jpeg" alt="Kalpathon 2.0 Coding Hackathon Certificate of Merit" />
+            <img class="cert-contain" src="kalpathon-winner-04.jpeg"
+              alt="Kalpathon 2.0 Coding Hackathon Certificate of Merit" />
             <h3>Kalpathon 2.0 Coding Hackathon</h3>
             <p>Innosphere SOE, BBD University</p>
             <span>2026</span>
           </article>
         </div>
-        <button class="cert-arrow next" type="button" aria-label="Next certificate"><i class="fa-solid fa-arrow-right"></i></button>
+        <button class="cert-arrow next" type="button" aria-label="Next certificate"><i
+            class="fa-solid fa-arrow-right"></i></button>
       </div>
     </section>
 
@@ -284,7 +320,8 @@
         <div class="contact-copy">
           <div class="rocket" aria-hidden="true">🚀</div>
           <h2>Let's Work Together 🚀</h2>
-          <p>Have an idea, internship opportunity, freelance project, or product that needs careful engineering? I am ready to build something clean, fast, and memorable.</p>
+          <p>Have an idea, internship opportunity, freelance project, or product that needs careful engineering? I am
+            ready to build something clean, fast, and memorable.</p>
           <a href="mailto:ujjwalsrivastava.dev@gmail.com" class="btn primary magnetic">
             <i class="fa-regular fa-envelope"></i>
             Contact Me
@@ -292,10 +329,13 @@
         </div>
         <div class="contact-links">
           <h3>Find me on</h3>
-          <a href="https://github.com/Ujjwal15-coder" target="_blank" rel="noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
-          <a href="https://www.linkedin.com/in/ujjwal-srivastava-844034328" target="_blank" rel="noreferrer"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+          <a href="https://github.com/Ujjwal15-coder" target="_blank" rel="noreferrer"><i
+              class="fa-brands fa-github"></i> GitHub</a>
+          <a href="https://www.linkedin.com/in/ujjwal-srivastava-844034328" target="_blank" rel="noreferrer"><i
+              class="fa-brands fa-linkedin"></i> LinkedIn</a>
           <a href="https://leetcode.com/" target="_blank" rel="noreferrer"><i class="fa-solid fa-code"></i> LeetCode</a>
-          <a href="https://www.instagram.com/moody_ujjwal_/" target="_blank" rel="noreferrer"><i class="fa-brands fa-instagram"></i> Instagram</a>
+          <a href="https://www.instagram.com/moody_ujjwal_/" target="_blank" rel="noreferrer"><i
+              class="fa-brands fa-instagram"></i> Instagram</a>
           <a href="mailto:ujjwalsrivastava.dev@gmail.com"><i class="fa-regular fa-envelope"></i> Email</a>
         </div>
       </div>
@@ -318,4 +358,5 @@
   <a href="#home" class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></a>
   <script src="script.js"></script>
 </body>
+
 </html>

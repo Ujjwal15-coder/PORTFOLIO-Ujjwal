@@ -1,3 +1,143 @@
+/* ===== Welcome Splash Screen ===== */
+.welcome-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 30% 50%, #0a0a2e 0%, #050510 50%, #000 100%);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  overflow: hidden;
+}
+
+.welcome-screen.exit {
+  opacity: 0;
+  transform: scale(1.05);
+  pointer-events: none;
+}
+
+.welcome-screen.hidden {
+  display: none;
+}
+
+.welcome-content {
+  text-align: center;
+  z-index: 2;
+  animation: welcomeFadeIn 1s ease forwards;
+}
+
+@keyframes welcomeFadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.welcome-hello {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(1.4rem, 4vw, 2.4rem);
+  color: #a7adba;
+  margin-bottom: 0.5rem;
+  animation: welcomeFadeIn 0.8s ease 0.2s both;
+}
+
+.welcome-name {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+  animation: welcomeFadeIn 0.8s ease 0.5s both;
+}
+
+.welcome-name span {
+  background: linear-gradient(135deg, #00e5ff, #7c3aed, #00ffc8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.welcome-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+  color: #6f7888;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+  animation: welcomeFadeIn 0.8s ease 0.8s both;
+}
+
+.welcome-enter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 40px;
+  font-family: 'Sora', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #000;
+  background: linear-gradient(135deg, #00e5ff, #00ffc8);
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: welcomeFadeIn 0.8s ease 1.1s both, welcomePulse 2s ease-in-out 2s infinite;
+}
+
+.welcome-enter-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 40px rgba(0, 229, 255, 0.4), 0 0 80px rgba(0, 255, 200, 0.2);
+}
+
+.welcome-enter-btn i {
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.welcome-enter-btn:hover i {
+  transform: translateX(5px);
+}
+
+@keyframes welcomePulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 229, 255, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(0, 229, 255, 0.5), 0 0 80px rgba(0, 255, 200, 0.15); }
+}
+
+.welcome-hint {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  color: #4a5060;
+  margin-top: 1.5rem;
+  animation: welcomeFadeIn 0.8s ease 1.4s both;
+}
+
+/* Floating particles */
+.welcome-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.welcome-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(0, 229, 255, 0.4);
+  border-radius: 50%;
+  animation: particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+  0% { transform: translateY(100vh) scale(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+
+/* ===== Main Styles ===== */
 :root {
   --bg: #050505;
   --panel: rgba(255, 255, 255, 0.055);

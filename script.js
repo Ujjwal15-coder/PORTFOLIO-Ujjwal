@@ -236,97 +236,54 @@ function bootFramerMotionBridge() {
   );
 }
 
-function initVoiceGreeting() {
-  if (!window.speechSynthesis) return;
+function initWelcomeScreen() {
+  const screen = document.getElementById("welcome-screen");
+  const enterBtn = document.getElementById("enter-btn");
+  if (!screen || !enterBtn) return;
 
-  // Clear stale flag so greeting works on fresh page load
-  if (!performance.navigation ||
-    performance.getEntriesByType("navigation")[0]?.type === "navigate") {
-    sessionStorage.removeItem("greeted");
+  // Create floating particles
+  const particlesContainer = screen.querySelector(".welcome-particles");
+  if (particlesContainer) {
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement("div");
+      p.className = "welcome-particle";
+      p.style.left = `${Math.random() * 100}%`;
+      p.style.animationDuration = `${4 + Math.random() * 6}s`;
+      p.style.animationDelay = `${Math.random() * 5}s`;
+      p.style.width = p.style.height = `${2 + Math.random() * 4}px`;
+      particlesContainer.appendChild(p);
+    }
   }
 
-  if (sessionStorage.getItem("greeted")) return;
+  // Preload voices
+  if (window.speechSynthesis) speechSynthesis.getVoices();
 
-  let spoken = false;
+  enterBtn.addEventListener("click", () => {
+    // Play voice greeting
+    if (window.speechSynthesis) {
+      const msg = new SpeechSynthesisUtterance("Hello there, I am Ujjwal");
+      msg.lang = "en-IN";
+      msg.rate = 0.9;
+      msg.pitch = 1.0;
+      msg.volume = 1;
 
-  function speak() {
-    if (spoken) return;
-    spoken = true;
-    sessionStorage.setItem("greeted", "1");
-
-    // Clean up all listeners
-    ["click", "keydown", "touchstart"].forEach(evt =>
-      window.removeEventListener(evt, speak, true)
-    );
-
-    // Cancel any stuck speech and give a brief pause
-    speechSynthesis.cancel();
-
-    setTimeout(() => {
       const voices = speechSynthesis.getVoices();
+      const maleIndian = voices.find(v => /ravi/i.test(v.name))
+        || voices.find(v => /male/i.test(v.name) && /en.IN/i.test(v.lang))
+        || voices.find(v => /en.IN/i.test(v.lang))
+        || voices.find(v => /ravi|david|mark|james|george/i.test(v.name) && /en/i.test(v.lang))
+        || voices.find(v => /en/i.test(v.lang));
+      if (maleIndian) msg.voice = maleIndian;
 
-      // Prefer warm, natural female voices ranked by quality
-      const pickVoice = () => {
-        const rankings = [
-          /google uk english female/i,
-          /google us english/i,
-          /samantha/i,
-          /karen/i,
-          /moira/i,
-          /fiona/i,
-          /zira/i,
-          /hazel/i,
-          /susan/i,
-          /female/i
-        ];
+      speechSynthesis.speak(msg);
+    }
 
-        for (const pattern of rankings) {
-          const match = voices.find(v => pattern.test(v.name) && /en/i.test(v.lang));
-          if (match) return match;
-        }
-        // Fallback to any English voice
-        return voices.find(v => /en/i.test(v.lang)) || null;
-      };
-
-      const trySpeak = () => {
-        const voice = pickVoice();
-
-        // Part 1: "Hello There!"
-        const greet = new SpeechSynthesisUtterance("Hello There!");
-        greet.rate = 0.88;
-        greet.pitch = 1.15;
-        greet.volume = 1;
-        if (voice) greet.voice = voice;
-
-        // Part 2: "I'm Ujjwal" — spoken after a natural pause
-        greet.onend = () => {
-          setTimeout(() => {
-            const intro = new SpeechSynthesisUtterance("I'm Ujjwal. Welcome to my portfolio.");
-            intro.rate = 0.9;
-            intro.pitch = 1.1;
-            intro.volume = 1;
-            if (voice) intro.voice = voice;
-            speechSynthesis.speak(intro);
-          }, 350); // natural breath pause
-        };
-
-        speechSynthesis.speak(greet);
-      };
-
-      // Voices may load asynchronously
-      if (voices.length) {
-        trySpeak();
-      } else {
-        speechSynthesis.addEventListener("voiceschanged", () => trySpeak(), { once: true });
-        setTimeout(trySpeak, 800);
-      }
-    }, 300);
-  }
-
-  // Only use gestures that browsers accept for unlocking audio
-  ["click", "keydown", "touchstart"].forEach(evt =>
-    window.addEventListener(evt, speak, { capture: true })
-  );
+    // Fade out splash screen
+    screen.classList.add("exit");
+    setTimeout(() => {
+      screen.classList.add("hidden");
+    }, 900);
+  });
 }
 
 createTechCloud();
@@ -340,7 +297,7 @@ initThemeToggle();
 initCursorGlow();
 initParallax();
 bootFramerMotionBridge();
-initVoiceGreeting();
+initWelcomeScreen();
 updateScrollState();
 
 window.addEventListener("scroll", updateScrollState, { passive: true });
