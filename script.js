@@ -147,17 +147,123 @@ function initCertificateControls() {
   const track = document.querySelector(".cert-track");
   const prev = document.querySelector(".cert-arrow.prev");
   const next = document.querySelector(".cert-arrow.next");
-  if (!track || !prev || !next) return;
+  const dotsContainer = document.querySelector(".cert-dots");
+  if (!track) return;
 
-  const move = direction => {
-    track.scrollBy({
-      left: direction * Math.min(410, track.clientWidth * 0.85),
-      behavior: "smooth"
+  const cards = track.querySelectorAll(".cert-card");
+  if (cards.length === 0) return;
+
+  let currentIndex = 0;
+  let autoSlideTimer = null;
+  let isPaused = false;
+
+  /* ---- Create navigation dots ---- */
+  const dots = [];
+  if (dotsContainer) {
+    cards.forEach((_, i) => {
+      const dot = document.createElement("button");
+      dot.className = "cert-dot" + (i === 0 ? " active" : "");
+      dot.type = "button";
+      dot.setAttribute("aria-label", `Go to certificate ${i + 1}`);
+      dot.addEventListener("click", () => {
+        currentIndex = i;
+        scrollToCard(currentIndex);
+        restartAutoSlide();
+      });
+      dotsContainer.appendChild(dot);
+      dots.push(dot);
     });
+  }
+
+  /* ---- Update active dot ---- */
+  function updateDots() {
+    dots.forEach((dot, i) => {
+      dot.classList.toggle("active", i === currentIndex);
+    });
+  }
+
+  /* ---- Scroll to a specific card ---- */
+  function scrollToCard(index) {
+    const card = cards[index];
+    if (!card) return;
+    const trackRect = track.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const offset = cardRect.left - trackRect.left + track.scrollLeft
+                   - (trackRect.width / 2 - cardRect.width / 2);
+    track.scrollTo({ left: offset, behavior: "smooth" });
+    updateDots();
+  }
+
+  /* ---- Advance to the next card (loops) ---- */
+  function advanceSlide() {
+    currentIndex = (currentIndex + 1) % cards.length;
+    scrollToCard(currentIndex);
+  }
+
+  /* ---- Manual navigation via arrows ---- */
+  const move = direction => {
+    currentIndex = (currentIndex + direction + cards.length) % cards.length;
+    scrollToCard(currentIndex);
+    restartAutoSlide();
   };
 
-  prev.addEventListener("click", () => move(-1));
-  next.addEventListener("click", () => move(1));
+  if (prev) prev.addEventListener("click", () => move(-1));
+  if (next) next.addEventListener("click", () => move(1));
+
+  /* ---- Auto-slide timer management ---- */
+  function startAutoSlide() {
+    stopAutoSlide();
+    autoSlideTimer = setInterval(() => {
+      if (!isPaused) advanceSlide();
+    }, 3000);
+  }
+
+  function stopAutoSlide() {
+    if (autoSlideTimer) {
+      clearInterval(autoSlideTimer);
+      autoSlideTimer = null;
+    }
+  }
+
+  function restartAutoSlide() {
+    startAutoSlide();
+  }
+
+  /* ---- Pause on hover / touch ---- */
+  track.addEventListener("mouseenter", () => { isPaused = true; });
+  track.addEventListener("mouseleave", () => { isPaused = false; restartAutoSlide(); });
+
+  // Pause while user is touching / swiping on mobile
+  track.addEventListener("touchstart", () => { isPaused = true; }, { passive: true });
+  track.addEventListener("touchend", () => {
+    isPaused = false;
+    // Sync currentIndex to the card closest to center after swipe
+    const trackCenter = track.scrollLeft + track.clientWidth / 2;
+    let closest = 0;
+    let minDist = Infinity;
+    cards.forEach((card, i) => {
+      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+      const dist = Math.abs(cardCenter - trackCenter);
+      if (dist < minDist) { minDist = dist; closest = i; }
+    });
+    currentIndex = closest;
+    updateDots();
+    restartAutoSlide();
+  }, { passive: true });
+
+  /* ---- Pause when section is out of viewport (performance) ---- */
+  const section = document.getElementById("certificates");
+  if (section && "IntersectionObserver" in window) {
+    const sectionObs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { isPaused = false; startAutoSlide(); }
+        else { isPaused = true; stopAutoSlide(); }
+      });
+    }, { threshold: 0.15 });
+    sectionObs.observe(section);
+  } else {
+    startAutoSlide();
+  }
 }
 
 function initMenu() {

@@ -1077,6 +1077,37 @@ button {
   box-shadow: 0 0 22px rgba(0, 229, 255, 0.26);
 }
 
+/* Certificate Navigation Dots */
+.cert-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.cert-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: all 0.35s var(--ease);
+}
+
+.cert-dot:hover {
+  border-color: rgba(0, 229, 255, 0.5);
+  background: rgba(0, 229, 255, 0.15);
+}
+
+.cert-dot.active {
+  width: 28px;
+  border-radius: 99px;
+  border-color: var(--cyan);
+  background: var(--cyan);
+  box-shadow: 0 0 14px rgba(0, 229, 255, 0.45);
+}
+
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
