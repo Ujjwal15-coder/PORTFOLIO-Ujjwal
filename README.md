@@ -22,7 +22,7 @@ The website is designed with a strong focus on performance, accessibility, respo
 
 ---
 
-# ✨ Features
+# ✨ Features..
 
 - 🚀 Modern & Responsive Design
 - 🎨 Interactive User Interface
